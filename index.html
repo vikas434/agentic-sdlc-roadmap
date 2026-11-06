@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Agentic SDLC Roadmap</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="A growing roadmap for working on any repository with a coding agent, built from handwritten notes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Caveat:wght@600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: one notebook column on graph paper; chapters as ruled pages, chalk-board figures inset. Dark = slate chalkboard. */
+:root {
+  --paper: #f3f5f8;
+  --grid: rgba(60, 90, 140, .07);
+  --ink: #1b2433;
+  --muted: #5a6577;
+  --rule: #d5dbe5;
+  --accent: #2c55c7;          /* fountain-pen blue */
+  --hl: rgba(255, 214, 10, .55); /* highlighter */
+  --red: #c4372e;
+  --board: #151719;
+  --card: #ffffff;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Atkinson Hyperlegible", Georgia, system-ui, sans-serif;
+  --hand: "Caveat", "Segoe Print", cursive;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --paper: #1d2228; --grid: rgba(200, 220, 255, .045); --ink: #e7ebf1; --muted: #9aa5b5; --rule: #343b45;
+  --accent: #8fb0ff; --hl: rgba(255, 214, 10, .28); --red: #ff7b6e; --board: #121416; --card: #252b33; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --paper: #1d2228; --grid: rgba(200, 220, 255, .045); --ink: #e7ebf1; --muted: #9aa5b5; --rule: #343b45;
+  --accent: #8fb0ff; --hl: rgba(255, 214, 10, .28); --red: #ff7b6e; --board: #121416; --card: #252b33; color-scheme: dark }
+
+* { box-sizing: border-box }
+body {
+  margin: 0; background-color: var(--paper); color: var(--ink);
+  background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 24px 24px;
+  font: 17px/1.65 var(--body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 40px 64px;
+}
+.wrap { max-width: 860px; margin: 0 auto; display: grid; gap: 56px }
+a { color: var(--accent) }
+a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; line-height: 1.1; margin: 0 }
+p { margin: 0; max-width: 65ch }
+.hl { background: linear-gradient(transparent 35%, var(--hl) 35%, var(--hl) 88%, transparent 88%); padding: 0 .15em }
+.hand { font-family: var(--hand); font-size: 1.35em; color: var(--accent); line-height: 1.1 }
+.mono { font-family: var(--mono); font-size: .88em; font-variant-numeric: tabular-nums }
+
+/* header */
+header { display: grid; gap: 18px }
+.eyebrow { font: 600 13px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted) }
+h1 { font-size: clamp(42px, 8vw, 76px); font-weight: 800; letter-spacing: -.02em }
+h1 .hand { font-size: .55em; display: block; margin-top: 6px; font-weight: 600; letter-spacing: 0 }
+.lede { font-size: 20px; color: var(--muted) }
+.thesis { font-family: var(--mono); font-size: 15px; background: var(--board); color: #f2e9b8; padding: 14px 18px; border-radius: 6px; max-width: max-content; overflow-x: auto }
+
+nav ol { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; counter-reset: ch }
+nav li { counter-increment: ch }
+nav a { display: inline-flex; gap: 8px; align-items: baseline; text-decoration: none; color: var(--ink); border: 1.5px solid var(--rule); background: var(--card); padding: 6px 12px; border-radius: 999px; font-size: 15px }
+nav a::before { content: counter(ch); font: 600 12px var(--mono); color: var(--accent) }
+nav a:hover { border-color: var(--accent) }
+
+/* chapters */
+.chapter { display: grid; gap: 20px; scroll-margin-top: 24px; border-top: 2px solid var(--ink); padding-top: 22px }
+.ch-head { display: flex; gap: 16px; align-items: baseline; flex-wrap: wrap }
+.ch-num { font: 600 13px var(--mono); color: var(--accent); letter-spacing: .1em; text-transform: uppercase }
+h2 { font-size: clamp(30px, 5vw, 42px); font-weight: 700; letter-spacing: -.01em }
+.prose { display: grid; gap: 14px }
+figure { margin: 0; display: grid; gap: 8px }
+figure img { width: 100%; height: auto; display: block; border-radius: 8px; background: #fbf7ec; border: 1.5px solid var(--rule); box-shadow: 0 1px 0 var(--rule), 0 12px 30px -18px rgba(0,0,0,.45) }
+figcaption { font-size: 14px; color: var(--muted) }
+.takeaway { border-left: 4px solid var(--accent); padding: 4px 0 4px 16px; font-weight: 700; max-width: 60ch }
+.takeaway .hand { display: block; font-weight: 600; margin-bottom: 2px; font-size: 1.15em }
+
+.pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px }
+.chat { background: var(--card); border: 1.5px solid var(--rule); border-radius: 8px; padding: 14px 16px; display: grid; gap: 6px; font-size: 15px; min-width: 0 }
+.chat h3 { font-size: 17px; margin-bottom: 4px }
+.chat .ai { color: #2f8a4f; font-weight: 700 }
+.chat .ai.no { color: var(--red) }
+
+ul.plain { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; max-width: 65ch }
+
+/* lab */
+.lab { background: var(--card); border: 1.5px solid var(--rule); border-radius: 10px; padding: 20px; display: grid; gap: 16px }
+.lab h3 { font-size: 20px }
+.lab label { font-weight: 700; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap }
+.lab input[type=range] { width: 100%; accent-color: var(--accent) }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px }
+.stat { border-top: 1.5px solid var(--rule); padding-top: 8px; min-width: 0 }
+.stat b { display: block; font: 700 26px/1.2 var(--mono); font-variant-numeric: tabular-nums; overflow-wrap: anywhere }
+.stat span { font-size: 13px; color: var(--muted) }
+.stat.warn b { color: var(--red) }
+.meter { height: 14px; border-radius: 7px; background: var(--paper); border: 1.5px solid var(--rule); overflow: hidden }
+.meter i { display: block; height: 100%; background: var(--accent); width: 0; transition: width .15s }
+.meter.full i { background: var(--red) }
+.lab small { color: var(--muted); font-size: 13px }
+
+/* log */
+.log { display: grid; gap: 10px }
+.entry { display: grid; grid-template-columns: 120px 1fr; gap: 12px; align-items: baseline; border-bottom: 1px dashed var(--rule); padding-bottom: 10px }
+.entry time { font: 500 14px var(--mono); color: var(--accent) }
+.entry div { min-width: 0 }
+@media (max-width: 480px) { .entry { grid-template-columns: 1fr; gap: 2px } body { font-size: 16px } }
+
+footer { font-size: 14px; color: var(--muted); display: grid; gap: 6px }
+@media (prefers-reduced-motion: reduce) { .meter i { transition: none } }
+/* roadmap strip */
+.road { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 15px }
+.road span { border: 1.5px solid var(--rule); background: var(--card); padding: 6px 12px; border-radius: 6px }
+.road span.now { border-color: var(--accent); color: var(--accent); font-weight: 700 }
+.road i { font-style: normal; color: var(--muted) }
+pre.tree { font: 500 15px/1.6 var(--mono); background: var(--card); border: 1.5px solid var(--rule); border-radius: 8px; padding: 12px 16px; margin: 0; max-width: max-content; overflow-x: auto }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <h1>Agentic SDLC Roadmap<span class="hand">how to work on any repo with a coding agent</span></h1>
+    <p class="lede">A step-by-step way of working on a repository, new or old, that a coding agent can follow and deliver on predictably. It starts with the words we use.</p>
+    <div class="thesis">same words for human and agent → predictable delivery</div>
+    <nav aria-label="Chapters">
+      <ol>
+        <li><a href="#domain-language">One domain language</a></li>
+        <li><a href="#grill">Grill with docs</a></li>
+        <li><a href="#adr">Decision records</a></li>
+        <li><a href="#pruning">Keep the docs lean</a></li>
+        <li><a href="#roadmap">What comes next</a></li>
+      </ol>
+    </nav>
+  </header>
+
+  <section class="chapter" id="domain-language">
+    <div class="ch-head"><span class="ch-num">Chapter 1</span><h2>One domain language</h2></div>
+    <div class="prose">
+      <p>A human and a coding agent look at the same product. To work on it together, they need a <span class="hl">common language that both can understand</span>.</p>
+      <p>We write that language down in one file, <span class="mono">GLOSSARY.md</span>. The idea comes from domain-driven design (DDD), where a company keeps a single language for talking about its domain, called the ubiquitous language, inside a bounded context.</p>
+      <p>Two rules for picking entries. Use the words your users use, so the language is easy to work with. And go slowly: add only the entries you need, and grow the file as you need more.</p>
+    </div>
+    <figure>
+      <img src="assets/gifs/1-domain-language.gif" alt="Hand-drawn animation: a human and an agent both point into a box labelled domain language, with the product above it. The box is written down as GLOSSARY.md." loading="lazy" width="960" height="540">
+      <figcaption>Human, agent and product all meet in one domain language.</figcaption>
+    </figure>
+    <p class="takeaway"><span class="hand">remember</span>One glossary, so the human and the agent mean the same thing.</p>
+  </section>
+
+  <section class="chapter" id="grill">
+    <div class="ch-head"><span class="ch-num">Chapter 2</span><h2>Grill with docs</h2></div>
+    <div class="prose">
+      <p>Is it a refund, a return or a cancel? Before an agent builds anything, we settle questions like this one. First we need the same glossary.</p>
+      <p>Then we ask the AI to grill us. With a skill called <span class="mono">/grill-with-docs</span>, it <span class="hl">asks question after question</span> until both of us are on the same page. Each answer updates the glossary. Along the way we decide which decisions are worth recording, business or technical.</p>
+      <p>Once the glossary is in place, the skill asks the right questions. For now this is a manual exercise, and the plan is to try it in each repository.</p>
+    </div>
+    <figure>
+      <img src="assets/gifs/2-grill.gif" alt="Hand-drawn animation: the words refund, return and cancel are circled; the AI runs /grill-with-docs and asks questions until both sides are on the same page, which updates GLOSSARY.md and records a decision." loading="lazy" width="960" height="540">
+      <figcaption>Questions until we agree, then the glossary and the decisions are written down.</figcaption>
+    </figure>
+    <p class="takeaway"><span class="hand">remember</span>Agree on the words before the agent builds.</p>
+  </section>
+
+  <section class="chapter" id="adr">
+    <div class="ch-head"><span class="ch-num">Chapter 3</span><h2>Decision records (ADRs)</h2></div>
+    <div class="prose">
+      <p>Some decisions need a written record. An Architecture Decision Record (ADR) is a short file that explains one decision. The repo keeps them next to the glossary:</p>
+    </div>
+<pre class="tree">GLOSSARY.md        terms that are hard to understand
+docs/
+  adr/
+    0001-...       one hard decision per file
+    0002-...</pre>
+    <div class="prose">
+      <p>Following the DDD book, a decision is worth an ADR when it is <span class="hl">hard to reverse, surprising, or the result of a trade-off</span>. It can be a tech decision or a business decision.</p>
+    </div>
+    <figure>
+      <img src="assets/gifs/3-adr.gif" alt="Hand-drawn animation: a folder tree with GLOSSARY.md and docs/adr/0001 and 0002, next to the three tests for an ADR: hard to reverse, surprising, a trade-off; tech or business." loading="lazy" width="960" height="540">
+      <figcaption>Glossary for the words, ADRs for the hard decisions.</figcaption>
+    </figure>
+    <p class="takeaway"><span class="hand">remember</span>Record a decision when it is hard to reverse, surprising, or a trade-off.</p>
+  </section>
+
+  <section class="chapter" id="pruning">
+    <div class="ch-head"><span class="ch-num">Chapter 4</span><h2>Keep the docs lean</h2></div>
+    <div class="prose">
+      <p>Over time the glossary gets bloated, so we prune it on a regular basis. The same <span class="mono">/grill-with-docs</span> skill helps us discuss and remove entries nobody uses. ADRs get the same treatment.</p>
+      <ul class="plain">
+        <li><b>No implementation details.</b> The refund database table does not belong in the glossary. The implementation can change, and <span class="hl">the code should be the source of truth</span>.</li>
+        <li><b>No coding-language details.</b> React or Java specifics are not needed here.</li>
+      </ul>
+      <p>Could these doc updates run as a loop? Updating on every merge changes too much. A regular async job is the better fit.</p>
+    </div>
+    <figure>
+      <img src="assets/gifs/4-pruning.gif" alt="Hand-drawn animation: a GLOSSARY.md box with refund, return and cancel, and a crossed-out refund DB table; React and Java crossed out; code is the source of truth; every merge crossed out; async job ticked." loading="lazy" width="960" height="540">
+      <figcaption>Prune the words, leave the details to the code, run cleanup as an async job.</figcaption>
+    </figure>
+    <p class="takeaway"><span class="hand">remember</span>Keep only the words. The code keeps the details.</p>
+  </section>
+
+  <section class="chapter" id="roadmap">
+    <div class="ch-head"><span class="ch-num">Chapter 5</span><h2>What comes next</h2></div>
+    <div class="prose">
+      <p>The glossary and grill with docs are the foundation. With the words settled, the work moves forward step by step:</p>
+    </div>
+    <div class="road" aria-label="Roadmap steps">
+      <span class="now">grill with docs</span><i>→</i><span>specs</span><i>→</i><span>tickets</span><i>→</i><span>implement</span><i>→</i><span>code review</span><i>→</i><span>deploy</span>
+    </div>
+    <p class="hand">each step gets its own notes and chapter…</p>
+  </section>
+
+  <section class="chapter" id="log" aria-labelledby="log-title">
+    <div class="ch-head"><span class="ch-num">Notes log</span><h2 id="log-title">Raw notes by date</h2></div>
+    <div class="log">
+      <div class="entry"><time datetime="2026-11-06">6 Nov 2026</time><div>Chapters 1 to 5: domain language and GLOSSARY.md, grill with docs, ADRs, pruning, the async doc loop. <a href="raw/2026-11-06/notes.md">Typed notes</a> · <a href="raw/2026-11-06/AI_skills.pdf">Handwritten PDF</a></div></div>
+    </div>
+  </section>
+</div>
+</body>
+</html>
